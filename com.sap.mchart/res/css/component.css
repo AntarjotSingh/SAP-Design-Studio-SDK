@@ -1,0 +1,53 @@
+.div1{
+	position: absolute;
+	z-index: 2;
+	
+}
+
+.div2 {
+	position: absolute; 
+	margin: 30px 150px 0 0;
+	z-index: 1;
+
+}
+
+.chart{
+	background: rgb(245, 247, 249);
+	position: relative;
+}
+
+.land{
+	background:
+	linear-gradient(
+      rgba(0, 0, 0, 0.3), 
+      rgba(0, 0, 0, 0.3)
+    ),
+    /* bottom, image */
+    url('bubblechart.png');
+    background-repeat:no-repeat;
+    background-size: 100% 100%;
+}
+
+.dot {
+  stroke: #000;
+}
+ 
+.label {
+  fill: #777;
+}
+
+.year.label {
+  font: 500 60px "Helvetica Neue";
+  fill: #ddd;
+}
+
+.year.label.active {
+  fill: #aaa;
+}
+
+.overlay {
+  fill: none;
+  pointer-events: all;
+  cursor: ew-resize;
+}
+
