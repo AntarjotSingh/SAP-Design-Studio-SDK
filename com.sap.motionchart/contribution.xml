@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<sdkExtension
+	xmlns="http://www.sap.com/bi/zen/sdk"
+	id="com.sap.motionchart"
+	title="Design Studio SDK Extension Motion Chart"
+	version="1.0"
+	vendor="SAP">
+	<component
+		id="MotionChart"
+		title="Motion Chart"
+		icon="res/icon.png"
+		handlerType="div"
+		tooltip="Motion Chart"
+    	modes="commons m"
+		databound="true"
+		propertySheetPath="res/additional_properties_sheet/additional_properties_sheet.html">
+		<requireJs modes="commons m">res/js/component</requireJs>
+		
+		<property
+			id="xdata"
+			title="Data for X-Axis"
+			type="ResultCellList"
+			group="DataBinding">
+			<option name="includeFormattedData" value="true"/>
+			<option name="includeData" value="true"/>
+			</property>
+		<property
+			id="ydata"
+			title="Data for Y-Axis"
+			type="ResultCellList"
+			group="DataBinding">
+			<option name="includeFormattedData" value="true"/>
+			<option name="includeData" value="true"/>
+			</property>
+		<property
+			id="rdata"
+			title="Data for Bubble"
+			type="ResultCellList"
+			group="DataBinding">
+			<option name="includeFormattedData" value="true"/>
+			<option name="includeData" value="true"/>
+			</property>
+		<initialization>
+			<defaultValue property="WIDTH">600</defaultValue>
+			<defaultValue property="HEIGHT">300</defaultValue>
+		</initialization>
+	</component>
+</sdkExtension>
