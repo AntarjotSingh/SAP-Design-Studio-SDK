@@ -51,7 +51,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 	this.init = function() {
 		this.$().addClass("land");
 		
-		//Get width and Height of canvas
+		//Get width and height of canvas
 		var w = this.$().width(),
 			h = this.$().height();
 		
@@ -84,8 +84,10 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 		.attr("font-size", "35px");
 	};
 		
+	
 	this.afterUpdate = function() {
 		
+		//Checks if data is retrieved
 		if(_xdata && _ydata && _rdata) {
 			
 			this.$().removeClass("land");
@@ -102,6 +104,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 				headerText2 = "",
 				bubbleText = "";
 			
+			//Defining functions to retrieve data
 			function x(d) { return d.xaxisdata; }
 			function y(d) { return d.yaxisdata; }
 			function radius(d) { return d.radiusdata; }
@@ -153,7 +156,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 				//	headerText = headerText.replace("|", " "); //Delimiter used for multiple presentations
 				}
 			}
-		//	console.log(headerText.slice(0, headerText.length-1));
+		
 			headerText = headerText.slice(0, headerText.length-1);
 			var dim = headerText.split(",");
 			for(var i = 0; i < dim.length; i++) {
@@ -167,13 +170,9 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 			dim1 = dim1.slice(0, dim1.length-1); 
 			dim2 = dim2.slice(0, dim2.length-1);
 			
-		//	console.log(dim1);
-		//	console.log(dim2);
 			var dimension1 = dim1.split(","),
 				dimension2 = dim2.split(",");
 			
-		//	console.log(dimension1);
-		//	console.log(dimension2);
 			function getAnySetColumn_Data() {
 				if(_xdata && _xdata.formattedData) {
 					return _xdata;
@@ -200,6 +199,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 						.append("g")
 						.attr("transform", "translate(" + 30 + "," + 0 + ")");
 			
+			//SVG to hold legends of chart
 			var svg2 = d3.select(this.paddingDiv)
 						.append("svg")
 						.attr("width", this.$().width())
@@ -262,10 +262,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 				dataset.push({ d1 : data1, d2 : data2, x : datax, y : datay, r : datar});
 			}
 			
-			
-			console.log(dataset);
-			// ///////////////////////
-			// /////////////////////////////
+			//Manipulation on the json data to sort and arrange in the required order
 			var sort_by;
 
 			(function() {
@@ -328,19 +325,13 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 					}
 				}
 			}());
-
-			// //////////////////////////////////
-			// //////////////////////////
+			
+			
 			var dt = dataset.sort(sort_by('d2', {
 				name : 'd1',
 				primer : parseInt,
 				reverse : false
 			}));
-			/*dt.sort(function(a, b) {
-				return a.d2 - b.d2;
-			});*/
-			
-			console.log(dt);
 			
 			var cou = [];
 			for(var i = 0; i < dt.length; i++)
@@ -367,28 +358,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 			}
 			
 			var result = foo(cou);	
-			
-//			console.log(result);
-		/*	var count1 = {},e;
-			for (var i = 0,l=dt.length; i < l; i++) { 
-			    e = dt[i];
-			    count1[e.d2] = (count1[e.d2] || 0) + 1;
-			}
-			console.log(count1);
-			var counts = {};
-			for (var i = 0; i < dt.length; i++) {
-			    counts[dt[i]] = 1 + (counts[dt[i]] || 0);
-			}
-			console.log(counts);
-		*//*
-			var count = [];
-			
-			for(var key in count1) {
-				count.push(count1[key]);
-			}
-			
-			console.log(count);
-			*/
+
 			var jsonData = [];
 			var data_x = [],
 				data_y = [],
@@ -408,7 +378,7 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 					data_r.push([parseInt(dt[j].d1), parseFloat(dt[j].r)]);
 					data_a.push([parseInt(dt[j].d1)]);
 				}
-			//	console.log(initialValue+ " "+finalValue);
+	
 				jsonData.push({name : dt[initialValue].d2, region : data_a, xaxisdata: data_x, radiusdata: data_r, yaxisdata: data_y});
 				k = finalValue;
 				data_x = [];
@@ -416,15 +386,12 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 				data_r = [];
 			}
 			
-			console.log(jsonData);
 			var jk = jsonData[0].region;
-		//	console.log(jk);
 			
 			jk.sort(function(a, b) {
 				return a - b;
 			});
-			console.log(jk);
-			console.log(jsonData);
+			
 			var n = parseInt(jsonData[0].region[0][0]);
 			var m = parseInt(jsonData[0].region[jsonData[0].region.length - 1][0]);
 			
@@ -436,7 +403,6 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 				  {
 				  	hello[i] = jsonData[i].name;
 				  }
-			  console.log(hello);
 			  
 			  var legend = svg2.append('g')
 			  	.attr("class", "legend");
@@ -461,12 +427,13 @@ define(["d3","sap/designstudio/sdk/component", "css!../css/component.css"], func
 		      .attr('height', 8)
 		     .style("fill", function(d) { return colorScale(d); });
 		
+		  // Source: https://github.com/RandomEtc/mind-gapper-js
+		  //		 http://www.gapminder.org/
 			
-			
-			  // A bisector since many nation's data is sparsely-defined.
+			  // A bisector since many dimension's data is sparsely-defined.
 			  var bisect = d3.bisector(function(d) { return d[0]; });
 
-			  // Add a dot per nation. Initialize the data at 1800, and set the colors.
+			  // Add a dot per dimension. 
 			  var dot = svg.append("g")
 			      .attr("class", "dots")
 			    .selectAll(".dot")
